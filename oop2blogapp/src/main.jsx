@@ -5,6 +5,7 @@ import './index.css'
 import App from './App.jsx'
 import Home from "./pages/Home.jsx"
 import ErrorPage from './pages/ErrorPage.jsx'
+import Login from './pages/Login.jsx'
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
     children:[
       {path:"/", element: <Home/>},
+      {path:"/login", element: <Login/>},
     ]
   }
 ])
