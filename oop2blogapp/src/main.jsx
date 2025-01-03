@@ -2,6 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 import {Provider} from "react-redux"
+import store from "./Store/store.js"
+import Protected from "./components/Protected.jsx"
 import './index.css'
 import App from './App.jsx'
 import Home from "./pages/Home.jsx"
@@ -15,7 +17,9 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
     children:[
       {path:"/", element: <Home/>},
-      {path:"/login", element: <Login/>},
+      {path:"/login", element: <Protected authentication={false}>
+      <Login/>
+    </Protected>},
     ]
   }
 ])
