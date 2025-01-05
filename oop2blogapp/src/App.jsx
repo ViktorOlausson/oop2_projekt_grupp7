@@ -7,17 +7,14 @@ import { Outlet } from 'react-router-dom'
 function App() {
 
   return (
-    <div className='min-h-dvh flex bg-primary'>
+    <div className='min-h-dvh flex bg-[#d3d3d3]'>
       <div className='w-full'>
         <Header/>
-        <main className='flex flex-col pt-0.5 min-h-[95%] bg-orange-700'> {/* body bg-orange-700*/}
+        <main className='flex flex-col pt-0.5 min-h-[95%] '> {/* body bg-orange-700*/}
           <Outlet/>
         </main>
       </div>
     </div>
-    // <h1 className="text-3xl font-bold underline">
-    //   Hello world!
-    // </h1>
   )
 }
 

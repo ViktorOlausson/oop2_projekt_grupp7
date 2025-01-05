@@ -6,6 +6,7 @@ import authService from '../appwrite/auth'
 import { login as authLogin } from '../store/authSlice'
 import Button from '../components/Button'
 import Input from '../components/Input'
+import Card from '../components/Card'
 
 function Login() {
 
@@ -31,7 +32,21 @@ function Login() {
   }
 
   return (
-    <div>Login</div>
+    <div className='py-8'>
+      <div className="flex items-center justify-center h-full">
+        <Card className='flex flex-col items-center'>
+          <div className='flex w-full items-center justify-center h-[85px] bg-blue-500'> {/* Heading div */}
+            <h2 className="text-3xl font-bold leading-tight">Log In</h2>
+          </div>
+
+          <div className='flex flex-col h-[165px] w-[520px] mt-[150px] justify-between bg-orange-500'> {/* Input div */}
+            <Input label="Email: " placeholder="Email Address" type="email" {...register("email", {required: true,})}/>
+            <Input className="mb-3" label="Password: " type="password" placeholder="Password" {...register("password", { required: true })}/>
+          </div>
+
+        </Card>
+      </div>
+    </div>
   )
 }
 
