@@ -9,6 +9,7 @@ import App from './App.jsx'
 import Home from "./pages/Home.jsx"
 import ErrorPage from './pages/ErrorPage.jsx'
 import Login from './pages/Login.jsx'
+import NotYetImplemented from './pages/NotYetImplemented.jsx'
 
 const router = createBrowserRouter([
   {
@@ -17,9 +18,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>,
     children:[
       {path:"/", element: <Home/>},
-      {path:"/login", element: <Protected authentication={false}>
-      <Login/>
-    </Protected>},
+      {path:"/login", element: <Protected authentication={false}> <Login/> </Protected>},
+      {path: "/notYetImplemented", element: <Protected authentication={false}> <NotYetImplemented/> </Protected> }
     ]
   }
 ])
