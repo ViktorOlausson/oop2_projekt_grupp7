@@ -41,9 +41,11 @@ function Login() {
     <div className='py-8'>
       <div className="flex items-center justify-center h-full">
         <Card className='flex flex-col items-center'>
+          
           <div className='flex w-full items-center justify-center h-[85px] bg-gray-300 rounded-t-xl shadow-md shadow-gray-400'> {/* Heading div */}
             <h2 className="text-3xl font-bold leading-tight">Log In</h2>
           </div>
+
           <form action="" onSubmit={handleSubmit(login)} className='mt-[150px]'>
             <div className='flex flex-col h-[165px] w-[520px] justify-between'> {/* Input div */}
               <Input className="shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300" label="Email: " placeholder="Email Address" type="email" {...register("email", {required: true,})}/>
