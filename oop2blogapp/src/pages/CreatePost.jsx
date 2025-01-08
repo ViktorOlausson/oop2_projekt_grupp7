@@ -1,9 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import ContentContainer from '../components/ContentContainer';
 import PostForm from '../components/PostForm';
 import Button from '../components/Button';
+import { Navigate } from 'react-router-dom';
 
 const CreatePost = () => {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const handlePublish = async () => {
+    if (!title || !content) {
+      setError('Please fill in all required fields.');
+      setSuccess('');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/posts', { title, content });
+      setSuccess('Post created successfully and saved in the database!');
+      setError('');
+      setTitle('');
+      setContent('');
+      console.log('Post created:', response.data);
+    } catch (err) {
+      console.error('Error creating post:', err);
+      setError('An error occurred while creating the post.');
+      setSuccess('');
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-300">
       <ContentContainer>
@@ -11,10 +39,15 @@ const CreatePost = () => {
         <PostForm
           titlePlaceholder="Post Title"
           contentPlaceholder="Post Content"
-          errorText="Fill in all required fields"
+          errorText={error}
+          titleValue={title}
+          contentValue={content}
+          onTitleChange={(e) => setTitle(e.target.value)}
+          onContentChange={(e) => setContent(e.target.value)}
           buttons={
             <>
               <Button
+                onClick={handlePublish}
                 bgColor="bg-green-600"
                 textColor="text-black"
                 rounded="rounded-lg"
@@ -24,6 +57,7 @@ const CreatePost = () => {
                 Publish
               </Button>
               <Button
+                onClick={() => navigate('/')}
                 bgColor="bg-red-700"
                 textColor="text-black"
                 rounded="rounded-lg"
@@ -35,6 +69,8 @@ const CreatePost = () => {
             </>
           }
         />
+        {/* Display success message */}
+        {success && <p className="text-green-700 text-center mt-4 font-bold">{success}</p>}
       </ContentContainer>
     </div>
   );

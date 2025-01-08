@@ -7,7 +7,7 @@ import Home from "./pages/Home.jsx"
 import ErrorPage from './pages/ErrorPage.jsx'
 import Login from './pages/Login.jsx'
 import CreatePost from './pages/CreatePost.jsx'
-import ReadPost from './pages/ReadPost.jsx'
+import PostPage from './pages/ReadPost.jsx'
 import UpdatePost from './pages/UpdatePost.jsx'
 
 const router = createBrowserRouter([
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
       {path:"/", element: <Home/>},
       {path:"/login", element: <Login/>},
       { path: "/createpost", element: <CreatePost/>},
-      {path: "/readmore", element: <ReadPost/>},
+      { path: '/readmore/posts/:id', element: <PostPage /> },
       {path: "/updatepost", element: <UpdatePost/>}
     ]
   }
