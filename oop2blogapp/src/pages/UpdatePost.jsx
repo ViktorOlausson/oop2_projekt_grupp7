@@ -33,16 +33,15 @@ const UpdatePost = () => {
   const handleUpdate = async () => {
     if (!title || !content) {
       setError('Both title and content are required.');
-      window.confirm('Please make sure both title and content filled');
+      alert('Please make sure both title and content filled');
       return;
     }
 
     try {
+      alert('Post updated successfully!');
       await axios.put(`http://localhost:5000/api/posts/${id}`, { title, content });
       setSuccess('Post updated successfully!');
-      window.confirm('Post updated successfully!');
       setError('');
-      setTimeout(() => navigate('/'), 1500);
     } catch (err) {
       console.error('Error updating post:', err);
       setError('Failed to update the post.');

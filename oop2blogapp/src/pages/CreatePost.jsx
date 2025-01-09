@@ -14,27 +14,18 @@ const CreatePost = () => {
 
   const handlePublish = async () => {
     if (!title || !content) {
-      setError('Please fill in all required fields.');
-      setSuccess('');
+      alert('Please fill in all required fields.');
       return;
     }
 
     try {
+      alert('Post created successfully and saved in the database!');
       const response = await axios.post('http://localhost:5000/api/posts', { title, content });
-      setSuccess('Post created successfully and saved in the database!');
+      setSuccess('');
       setError('');
-      setTitle('');
-      setContent('');
-      console.log('Post created:', response.data);
-
-      // Redirect to home after 2 seconds
-      setTimeout(() => {
-        navigate('/');
-      }, 2000);
     } catch (err) {
       console.error('Error creating post:', err);
-      setError('An error occurred while creating the post.');
-      setSuccess('');
+      alert('An error occurred while creating the post.');
     }
   };
 

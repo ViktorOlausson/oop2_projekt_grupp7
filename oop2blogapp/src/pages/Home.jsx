@@ -40,7 +40,7 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gray-400">
+    <div className="min-h-screen flex flex-col items-center bg-blue-300">
       <main className="flex flex-col items-center w-full mt-8">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Posts</h2>
         <div className="bg-blue-300 w-4/5 p-6 rounded-lg flex flex-col gap-4">
