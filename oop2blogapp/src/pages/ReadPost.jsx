@@ -65,13 +65,13 @@ const PostPage = () => {
         <div className="flex flex-col gap-6">
           {/* Read-Only Title Textarea */}
           <textarea
-            className="p-4 border border-gray-300 rounded-lg w-full bg-gray-200 cursor-not-allowed"
+            className="p-4 border border-gray-300 rounded-lg w-full bg-white cursor-not-allowed"
             value={title}
             readOnly // Make the textarea read-only
           ></textarea>
           {/* Read-Only Content Textarea */}
           <textarea
-            className="p-4 border border-gray-300 rounded-lg h-60 w-full bg-gray-200 cursor-not-allowed"
+            className="p-4 border border-gray-300 rounded-lg h-60 w-full bg-white cursor-not-allowed"
             value={content}
             readOnly // Make the textarea read-only
           ></textarea>

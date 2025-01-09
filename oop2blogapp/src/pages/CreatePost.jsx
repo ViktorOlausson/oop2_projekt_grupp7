@@ -3,13 +3,14 @@ import axios from 'axios';
 import ContentContainer from '../components/ContentContainer';
 import PostForm from '../components/PostForm';
 import Button from '../components/Button';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   const handlePublish = async () => {
     if (!title || !content) {
@@ -25,6 +26,11 @@ const CreatePost = () => {
       setTitle('');
       setContent('');
       console.log('Post created:', response.data);
+
+      // Redirect to home after 2 seconds
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
     } catch (err) {
       console.error('Error creating post:', err);
       setError('An error occurred while creating the post.');
@@ -69,6 +75,8 @@ const CreatePost = () => {
             </>
           }
         />
+        {/* Debugging */}
+        {console.log(success)}
         {/* Display success message */}
         {success && <p className="text-green-700 text-center mt-4 font-bold">{success}</p>}
       </ContentContainer>

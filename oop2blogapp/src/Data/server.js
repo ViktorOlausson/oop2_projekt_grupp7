@@ -23,7 +23,8 @@ const db = new sqlite3.Database('./posts.db', (err) => {
         content TEXT NOT NULL,
         likes INTEGER DEFAULT 0,
         dislikes INTEGER DEFAULT 0,
-        comments TEXT DEFAULT ''
+        comments TEXT DEFAULT '',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
     `);
   }
@@ -45,7 +46,7 @@ app.get('/api/posts/:id', (req, res) => {
   });
 });
 
-// 1. Create a new post
+// Create a new post
 app.post('/api/posts', (req, res) => {
   const { title, content } = req.body;
 
@@ -62,9 +63,9 @@ app.post('/api/posts', (req, res) => {
   });
 });
 
-// 2. Retrieve all posts
+// Retrieve all posts (ordered by newest first)
 app.get('/api/posts', (req, res) => {
-  const query = 'SELECT * FROM posts';
+  const query = 'SELECT * FROM posts ORDER BY created_at DESC';
   db.all(query, [], (err, rows) => {
     if (err) {
       return res.status(500).json({ error: err.message });
@@ -73,7 +74,7 @@ app.get('/api/posts', (req, res) => {
   });
 });
 
-// 3. Update a post
+// Update a post
 app.put('/api/posts/:id', (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
@@ -91,7 +92,7 @@ app.put('/api/posts/:id', (req, res) => {
   });
 });
 
-// 4. Delete a post
+// Delete a post
 app.delete('/api/posts/:id', (req, res) => {
   const { id } = req.params;
 
@@ -104,7 +105,7 @@ app.delete('/api/posts/:id', (req, res) => {
   });
 });
 
-// 5. Like a post
+// Like a post
 app.post('/api/posts/:id/like', (req, res) => {
   const { id } = req.params;
 
@@ -117,7 +118,7 @@ app.post('/api/posts/:id/like', (req, res) => {
   });
 });
 
-// 6. Dislike a post
+// Dislike a post
 app.post('/api/posts/:id/dislike', (req, res) => {
   const { id } = req.params;
 
