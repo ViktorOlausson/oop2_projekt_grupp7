@@ -19,7 +19,7 @@ const CreatePost = () => {
     }
 
     try {
-      alert('Post created successfully and saved in the database!');
+      alert('Post created successfully!');
       const response = await axios.post('http://localhost:5000/api/posts', { title, content });
       setSuccess('');
       setError('');
