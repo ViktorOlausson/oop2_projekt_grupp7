@@ -2,7 +2,9 @@ import React from 'react'
 import "../index.css"
 import Button from './Button'
 import Container from './Container'
+import LogoutBtn from './LogoutBtn'
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from 'react-redux'
 
 const navItems = [
     {name: "Home", slug: "/"},
@@ -19,6 +21,7 @@ function Header() {
     const navigate = useNavigate()
     const location = useLocation()
     const currentPath = location.pathname
+    const authStatus = useSelector((state) => state.auth.status)
   return (
     <header className='h-12 place-content-center flex sticky top-0 z-50 bg-slate-400'>
       {/* border frame: border-2 border-border-gray */}
@@ -36,6 +39,11 @@ function Header() {
                     </Button>
                   </li>
                 ))}
+                {authStatus &&(
+                  <li>
+                    <LogoutBtn/>
+                  </li>
+                )}
                 
               </ul>
           

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import authService from '../appwrite/auth'
-import { login as authLogin } from '../store/authSlice'
+import { login as authLogin } from '../Store/authSlice'
 import Button from '../components/Button'
 import Input from '../components/Input'
 import Card from '../components/Card'
@@ -32,10 +32,10 @@ function Login() {
   }
 
   const buttonStyle = 
-  "h-[30px] w-[250px] mb-[15px] font-medium text-black duration-500 shadow-md shadow-black bg-blue-500 rounded-lg hover:bg-blue-900 hover:text-white hover:shadow-none"
+  "w-[250px] mb-[15px] font-medium text-black duration-500 shadow-md shadow-black bg-blue-500 rounded-lg hover:bg-blue-900 hover:text-white hover:shadow-none"
 
   const forgotPasswordNav = "/notYetImplemented"
-  const createAccountNav = "/notYetImplemented"
+  const createAccountNav = "/signup"
 
   return (
     <div className='py-8'>
@@ -53,10 +53,10 @@ function Login() {
             </div>
 
             <div className='h-full w-full mt-3 flex flex-col items-center justify-end'>  {/* Button div */}
-              <Button className={`${buttonStyle}`} padding='' onClick={() => navigate(forgotPasswordNav)}> Forgot Password </Button>
-              <Button className={`${buttonStyle}`} padding='' onClick={() => navigate(createAccountNav)}> Create Account </Button>
+              <Button className={`${buttonStyle} h-[30px]`} padding='' onClick={() => navigate(forgotPasswordNav)}> Forgot Password </Button>
+              <Button className={`${buttonStyle} h-[30px]`} padding='' onClick={() => navigate(createAccountNav)}> Create Account </Button>
 
-              <Button className={`${buttonStyle} w-[400px] h-20 text-4xl font-bold mb-5 rounded`} padding='' type="submit"> Log In </Button>
+              <Button className={`${buttonStyle} w-[400px] h-20 text-4xl font-bold mb-5`} padding='' type="submit"> Log In </Button>
             </div>
           </form>
           
