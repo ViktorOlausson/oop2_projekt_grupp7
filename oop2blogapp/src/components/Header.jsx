@@ -20,8 +20,13 @@ function Header() {
 
     const navigate = useNavigate()
     const location = useLocation()
-    const currentPath = location.pathname
+    let currentPath = location.pathname
     const authStatus = useSelector((state) => state.auth.status)
+    console.log(currentPath)
+    if(currentPath == "/signup"){
+      currentPath = "/login"
+    }
+      
   return (
     <header className='h-12 place-content-center flex sticky top-0 z-50 bg-slate-400'>
       {/* border frame: border-2 border-border-gray */}
