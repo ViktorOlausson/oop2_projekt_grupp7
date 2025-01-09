@@ -6,10 +6,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const navItems = [
     {name: "Home", slug: "/"},
-    {name: "Log In", slug: "/login"},
     { name: "Create Post", slug: "/createpost" },
-    { name: "Read More", slug:"/readmore" },
-    { name: "Update Post", slug:"/updatepost"},
+    {name: "Log In", slug: "/login"},
   ]
 
   const buttonStyle = "h-full flex items-center duration-300 text-black"
