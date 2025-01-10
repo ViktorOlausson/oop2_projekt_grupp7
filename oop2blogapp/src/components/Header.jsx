@@ -20,11 +20,12 @@ function Header() {
 
     const navigate = useNavigate()
     const location = useLocation()
-    let currentPath = location.pathname
+    let currentPath
     const authStatus = useSelector((state) => state.auth.status)
-    console.log(currentPath)
     if(currentPath == "/signup"){
       currentPath = "/login"
+    }else{
+      currentPath = location.pathname
     }
       
   return (

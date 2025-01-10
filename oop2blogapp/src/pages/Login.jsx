@@ -32,7 +32,7 @@ function Login() {
   }
 
   const buttonStyle = 
-  "w-[250px]  font-medium text-black duration-500 shadow-md shadow-black bg-blue-500 rounded-lg hover:bg-blue-900 hover:text-white hover:shadow-none"
+  "w-[250px] font-medium text-black duration-500 shadow-md shadow-black bg-blue-500 rounded-lg hover:bg-blue-900 hover:text-white hover:shadow-none"
 
   const forgotPasswordNav = "/notYetImplemented"
   const createAccountNav = "/signup"
@@ -46,7 +46,7 @@ function Login() {
             <h2 className="text-3xl font-bold leading-tight">Log In</h2>
           </div>
 
-          <form action="" onSubmit={handleSubmit(login)} className='mt-[150px] bg-green-400 h-full relative'>
+          <form action="" onSubmit={handleSubmit(login)} className='mt-[150px] h-full relative'>
             <div className='flex flex-col h-[165px] w-[520px] justify-between'> {/* Input div */}
               <Input className="shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300" label="Email: " placeholder="Email Address" type="email" {...register("email", {required: true,})}/>
               <Input className="shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300" label="Password: " type="password" placeholder="Password" {...register("password", { required: true })}/>

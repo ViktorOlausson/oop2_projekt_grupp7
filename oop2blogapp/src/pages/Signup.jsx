@@ -9,7 +9,7 @@ import Input from '../components/Input'
 import Card from '../components/Card'
 
 
-const buttonStyle = "w-[250px] mb-[15px] font-medium text-black duration-500 shadow-md shadow-black bg-blue-500 rounded-lg hover:bg-blue-900 hover:text-white hover:shadow-none"
+const buttonStyle = "w-[250px] font-medium text-black duration-500 shadow-md shadow-black bg-blue-500 rounded-lg hover:bg-blue-900 hover:text-white hover:shadow-none"
 
 const forgotPasswordNav = "/notYetImplemented"
 const haveAccountNave = "/login"
@@ -33,9 +33,9 @@ function Signup() {
           <form action="" className='mt-20 h-full relative'>
             <div className='flex flex-col h-[165px] w-[520px] justify-between'> {/* Input div */}
               <Input className="mb-4 shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300" label="Email: " placeholder="Email@Address.com" type="email" {...register("email", {required: true,})}/>
-              <Input className="shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300 mb-16" label="Username: " type="username" placeholder="UserName" {...register("password", { required: true })}/>
+              <Input className="shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300 mb-16" label="Username: " type="username" placeholder="UserName" {...register("name", { required: true })}/>
             
-              <Input className="mb-4 shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300" label="Password: " placeholder="Password" type="password" {...register("email", {required: true,})}/>
+              <Input className="mb-4 shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300" label="Password: " placeholder="Password" type="password"/>
               <Input className="shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300" label="Repeat Password: " type="password" placeholder="Repeat Password" {...register("password", { required: true })}/>
               <div className='flex flex-row mt-8'>
                 <input type="checkbox" />
@@ -46,7 +46,7 @@ function Signup() {
 
             <div className='w-full mt-3 flex flex-col items-center justify-end absolute bottom-5 left-0'>  {/* Button div */}
               {/* <Button className={`${buttonStyle} h-[30px]`} padding='' onClick={() => navigate(forgotPasswordNav)}> Forgot Password </Button>  */} {/* Sign up med annat???? */}
-              <Button className={`${buttonStyle} h-[30px] mb-[15px]`} padding='' onClick={() => navigate(haveAccountNave)}> Already have an account? </Button>
+              <Button className={`${buttonStyle} h-[30px] mb-[15px]`} padding='' onClick={() => navigate("/login")}> Already have an account? </Button>
 
               <Button className={`w-[400px] h-20 text-4xl font-bold ${buttonStyle} `} padding='' type="submit"> Sign Up </Button>
             </div>
