@@ -20,6 +20,7 @@ function Signup() {
   const [error, setError] = useState("")
   const dispatch = useDispatch()
   const {register, handleSubmit} = useForm()
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false)
 
   const createAccount = async(data) => {
     setError("")
@@ -55,7 +56,7 @@ function Signup() {
               <Input className="mb-4 shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300" label="Password: " placeholder="Password" type="password"/>
               <Input className="shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300" label="Repeat Password: " type="password" placeholder="Repeat Password" {...register("password", { required: true })}/>
               <div className='flex flex-row mt-8'>
-                <input type="checkbox" />
+                <input type="checkbox" checked={isTermsAccepted} onChange={(e) => setIsTermsAccepted(e.target.checked)}/>
                 <p>Do you accept the <Link className='underline text-blue-500' to="/notYetImplemented">terms and conditions</Link>?</p>
               </div>
               
@@ -65,7 +66,7 @@ function Signup() {
               {/* <Button className={`${buttonStyle} h-[30px]`} padding='' onClick={() => navigate(forgotPasswordNav)}> Forgot Password </Button>  */} {/* Sign up med annat???? */}
               <Button className={`${buttonStyle} h-[30px] mb-[15px]`} padding='' onClick={() => navigate("/login")}> Already have an account? </Button>
 
-              <Button className={`w-[400px] h-20 text-4xl font-bold ${buttonStyle} `} padding='' type="submit"> Sign Up </Button>
+              <Button className={`w-[400px] h-20 text-4xl font-bold ${buttonStyle} `} padding='' type="submit" disabled={!isTermsAccepted}> Sign Up </Button>
             </div>
           </form>
           
