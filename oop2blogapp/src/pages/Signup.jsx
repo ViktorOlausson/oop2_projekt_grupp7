@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import authService from '../appwrite/auth'
-import { login as authLogin } from '../Store/authSlice'
+import { login as authLogin, login } from '../Store/authSlice'
 import Button from '../components/Button'
 import Input from '../components/Input'
 import Card from '../components/Card'
@@ -21,6 +21,23 @@ function Signup() {
   const dispatch = useDispatch()
   const {register, handleSubmit} = useForm()
 
+  const createAccount = async(data) => {
+    setError("")
+    try{
+      const userData = await authService.createAccount(data)
+      if(userData){
+        await authService.getCurrentUser(userData)
+        if(userData){
+          dispatch(login({userData}))
+          navigate("/")
+        }
+        
+      }
+    }catch (error){
+      setError(error)
+    }
+  }
+
   return (
     <div className='py-8'>
       <div className="flex items-center justify-center h-full">
@@ -30,10 +47,10 @@ function Signup() {
             <h2 className="text-3xl font-bold leading-tight">Sign Up</h2>
           </div>
 
-          <form action="" className='mt-20 h-full relative'>
+          <form action="" className='mt-20 h-full relative' onSubmit={handleSubmit(createAccount)}>
             <div className='flex flex-col h-[165px] w-[520px] justify-between'> {/* Input div */}
               <Input className="mb-4 shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300" label="Email: " placeholder="Email@Address.com" type="email" {...register("email", {required: true,})}/>
-              <Input className="shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300 mb-16" label="Username: " type="username" placeholder="UserName" {...register("name", { required: true })}/>
+              <Input className="shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300 mb-16" label="Username: " type="username" placeholder="UserName" {...register("username", { required: true })}/>
             
               <Input className="mb-4 shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300" label="Password: " placeholder="Password" type="password"/>
               <Input className="shadow-sm shadow-black focus:shadow-none focus:border-gray-400 duration-300" label="Repeat Password: " type="password" placeholder="Repeat Password" {...register("password", { required: true })}/>
