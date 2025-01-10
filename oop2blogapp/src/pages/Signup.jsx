@@ -24,9 +24,9 @@ function Signup() {
   return (
     <div className='py-8'>
       <div className="flex items-center justify-center h-full">
-        <Card className='flex flex-col items-center relative'>
+        <Card className='flex flex-col items-center'>
           
-          <div className='flex w-full items-center justify-center h-[85px] bg-gray-300 rounded-t-xl shadow-md shadow-gray-400'> {/* Heading div */}
+          <div className='flex w-full items-center justify-center min-h-[70px] bg-gray-300 rounded-t-xl shadow-md shadow-gray-400'> {/* Heading div */}
             <h2 className="text-3xl font-bold leading-tight">Sign Up</h2>
           </div>
 
