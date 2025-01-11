@@ -15,21 +15,21 @@ function Login() {
   const dispatch = useDispatch()
   const {register, handleSubmit} = useForm()
 
-  const login = async(data) => {
+  const login = async (data) => {
     setError("")
-    try{
-      const session = await authService.login(data)
-      if (session){
-        const userData = await authService.getCurrentUser
-        if(userData){
-          dispatch(authLogin({userData}))
-          navigate("/")
+    try {
+        const session = await authService.login(data)
+        if (session) {
+            const userData = await authService.getCurrentUser
+            if(userData){
+                dispatch(authLogin({userData}))
+                navigate("/")
+            }
         }
-      }
-    } catch(error){ // fix better error handeling with handeling for if an user does not exist etc
-      setError(error)
+    } catch (error) {
+        setError(error)// fix better error handeling with handeling for if an user does not exist etc
     }
-  }
+}
 
   const buttonStyle = 
   "w-[250px] font-medium text-black duration-500 shadow-md shadow-black bg-blue-500 rounded-lg hover:bg-blue-900 hover:text-white hover:shadow-none"

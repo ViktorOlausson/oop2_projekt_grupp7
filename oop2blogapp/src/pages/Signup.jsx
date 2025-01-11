@@ -17,25 +17,24 @@ const haveAccountNave = "/login"
 function Signup() {
 
   const navigate = useNavigate()
-  const [error, setError] = useState("")
-  const dispatch = useDispatch()
-  const {register, handleSubmit} = useForm()
+    const [error, setError] = useState("")
+    const dispatch = useDispatch()
+    const {register, handleSubmit} = useForm()
   const [isTermsAccepted, setIsTermsAccepted] = useState(false)
 
   const createAccount = async(data) => {
     setError("")
-    try{
+    try {
       const userData = await authService.createAccount(data)
-      if(userData){
-        await authService.getCurrentUser(userData)
-        if(userData){
+      if (userData) {
+        await authService.getCurrentUser()    
+        if (userData) {
           dispatch(login({userData}))
           navigate("/")
-        }
-        
+      }            
       }
-    }catch (error){
-      setError(error)
+    } catch (error) {
+        setError(error)
     }
   }
 
@@ -66,7 +65,7 @@ function Signup() {
               {/* <Button className={`${buttonStyle} h-[30px]`} padding='' onClick={() => navigate(forgotPasswordNav)}> Forgot Password </Button>  */} {/* Sign up med annat???? */}
               <Button className={`${buttonStyle} h-[30px] mb-[15px]`} padding='' onClick={() => navigate("/login")}> Already have an account? </Button>
 
-              <Button className={`w-[400px] h-20 text-4xl font-bold ${buttonStyle} `} padding='' type="submit" disabled={!isTermsAccepted}> Sign Up </Button>
+              <Button className={`w-[400px] h-20 text-4xl font-bold ${buttonStyle} ${isTermsAccepted ? "" : "shadow-none"}`} padding='' type="submit" disabled={!isTermsAccepted}> Sign Up </Button>
             </div>
           </form>
           
