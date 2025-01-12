@@ -17,25 +17,25 @@ const haveAccountNave = "/login"
 function Signup() {
 
   const navigate = useNavigate()
-    const [error, setError] = useState("")
-    const dispatch = useDispatch()
-    const {register, handleSubmit} = useForm()
+  const [error, setError] = useState("")
+  const dispatch = useDispatch()
+  const {register, handleSubmit} = useForm()
   const [isTermsAccepted, setIsTermsAccepted] = useState(false)
 
   const createAccount = async(data) => {
     setError("")
-    try {
-      const userData = await authService.createAccount(data)
-      if (userData) {
-        await authService.getCurrentUser()    
-        if (userData) {
-          dispatch(login({userData}))
-          navigate("/")
-      }            
-      }
-    } catch (error) {
-        setError(error)
-    }
+        try {
+            const userData = await authService.createAccount(data)
+            if (userData) {
+                await authService.getCurrentUser()    
+                if (userData) {
+                    dispatch(login({userData}))
+                    navigate("/")
+                }            
+            }
+        } catch (error) {
+            setError(error)
+        }
   }
 
   return (

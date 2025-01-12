@@ -37,15 +37,15 @@ function Header() {
           </div>
               <ul className='flex ml-auto'>
 
-                {navItems.map((item) => item.active ? (
+                {navItems.map((item) => item.active && (
                   <li className='mx-1.5' key={item.name}>
                     <Button className={`${buttonStyle} ${currentPath === item.slug ? "active" : ""}`} bgColor={buttonColor} padding={buttonPadding} 
                     onClick={() => navigate(item.slug)}>
                       <p className='mx-1.5 font-semibold'>{item.name}</p>
                     </Button>
                   </li>
-                ): null )}
-                {authStatus &&(
+                ))}
+                {authStatus && (
                   <li>
                     <LogoutBtn/>
                   </li>

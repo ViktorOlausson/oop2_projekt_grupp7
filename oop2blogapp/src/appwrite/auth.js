@@ -2,32 +2,33 @@ import { Client, ID, Account } from "appwrite";
 import conf from "../conf/conf";
 
 export class AuthService {
-    client = new Client();
+    client = new Client()
     account;
     constructor(){
-        this.client.setEndpoint(conf.appwriteUrl)
-            .setProject(conf.appwriteProjectId)
+        this.client
+        .setEndpoint(conf.appwriteUrl)
+        .setProject(conf.appwriteProjectId)
         this.account = new Account(this.client)
     }
 
     async createAccount({email, password, username}){
-        try{
+        try {
             const userAccount = await this.account.create(ID.unique(), email, password, username)
-            if(userAccount){
+            if (userAccount) {
                 return this.login({email, password})
             } else {
                 return userAccount
             }
-        }catch (error){
+        } catch (error) {
             throw error
         }
     }
 
     async login({email, password}){
-        try{
+        try {
             return await this.account.createEmailPasswordSession(email, password)
-        }catch (error){
-        throw error
+        } catch (error) {
+            throw error
         }
     }
 
@@ -37,11 +38,12 @@ export class AuthService {
         } catch{
             throw error
         }
+        return null
     }
 
     async logout(){
         try{
-            await this.account.deleteSession()
+            await this.account.deleteSession("current")
         }catch (error){
             throw error
         }

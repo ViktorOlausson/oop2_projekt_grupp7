@@ -17,18 +17,18 @@ function Login() {
 
   const login = async (data) => {
     setError("")
-    try {
-        const session = await authService.login(data)
-        if (session) {
-            const userData = await authService.getCurrentUser
-            if(userData){
-                dispatch(authLogin({userData}))
-                navigate("/")
+        try {
+            const session = await authService.login(data)
+            if (session) {
+                const userData = await authService.getCurrentUser()
+                if(userData){
+                    dispatch(authLogin({userData}))
+                    navigate("/")
+                }
             }
+        } catch (error) {
+            setError(error)// fix better error handeling with handeling for if an user does not exist etc
         }
-    } catch (error) {
-        setError(error)// fix better error handeling with handeling for if an user does not exist etc
-    }
 }
 
   const buttonStyle = 
@@ -53,8 +53,8 @@ function Login() {
             </div>
 
             <div className='w-full mt-3 flex flex-col items-center justify-end absolute bottom-5 left-0'>  {/* Button div */}
-              <Button className={`${buttonStyle} h-[30px] mb-[15px]`} padding='' onClick={() => navigate(forgotPasswordNav)}> Forgot Password </Button>
-              <Button className={`${buttonStyle} h-[30px] mb-[15px]`} padding='' onClick={() => navigate(createAccountNav)}> Create Account </Button>
+              <Button className={`${buttonStyle} h-[30px] mb-[15px]`} padding='' onClick={() => navigate(forgotPasswordNav)} type="button"> Forgot Password </Button>
+              <Button className={`${buttonStyle} h-[30px] mb-[15px]`} padding='' onClick={() => navigate(createAccountNav)} type="button"> Create Account </Button>
 
               <Button className={`w-[400px] h-20 text-4xl font-bold ${buttonStyle} `} padding='' type="submit"> Log In </Button>
             </div>
