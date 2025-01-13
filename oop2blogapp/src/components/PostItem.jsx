@@ -45,6 +45,20 @@ const PostItem = ({ post, onDelete }) => {
     }
   };
 
+  // Handle delete comment
+  const handleDeleteComment = async (commentId) => {
+    if (!window.confirm('Are you sure you want to delete this comment?')) {
+      return;
+    }
+
+    try {
+      await axios.delete(`http://localhost:5000/api/comments/${commentId}`);
+      fetchComments(); // Reload comments after deletion
+    } catch (err) {
+      console.error('Error deleting comment:', err);
+    }
+  };
+
   // Handle Like Button Click
   const handleLike = async () => {
     try {
@@ -186,15 +200,26 @@ const PostItem = ({ post, onDelete }) => {
               <h3 className="text-lg font-semibold mb-2">Comments</h3>
               <ul className="space-y-3">
                 {comments.map((comment, index) => (
-                  <li key={index} className="p-3 bg-white rounded-md shadow-md">
+                  <li key={comment.id} className="p-3 bg-white rounded-md shadow-md relative">
+                  <button
+                    className="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex justify-center items-center hover:bg-red-600"
+                    onClick={() => handleDeleteComment(comment.id)}
+                    title="Delete Comment"
+                  >
+                    🗑️
+                  </button>
+                  <div>
                     <div className="text-sm text-gray-600 mb-1">
                       <span className="font-semibold">{comment.author || 'Anonymous'}</span>{' '}
                       <span className="text-gray-400">
-                        {formatDate(comment.created_at)}
+                        {new Date(comment.created_at).toLocaleString('en-US', {
+                          timeZone: 'Europe/Stockholm',
+                        })}
                       </span>
                     </div>
                     <p>{comment.text}</p>
-                  </li>
+                  </div>
+                </li>
                 ))}
               </ul>
             </div>

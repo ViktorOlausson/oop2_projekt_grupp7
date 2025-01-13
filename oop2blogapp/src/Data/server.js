@@ -183,6 +183,21 @@ app.get('/api/posts/:id/comments', (req, res) => {
   });
 });
 
+// Delete a comment
+app.delete('/api/comments/:id', (req, res) => {
+  const { id } = req.params;
+
+  const query = 'DELETE FROM comments WHERE id = ?';
+  db.run(query, [id], function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(200).json({ message: 'Comment deleted successfully.' });
+    }
+  });
+});
+
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
