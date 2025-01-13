@@ -2,6 +2,7 @@ import express from 'express';
 import sqlite3 from 'sqlite3';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import moment from 'moment-timezone';
 
 const app = express();
 const port = 5000;
@@ -66,8 +67,11 @@ app.post('/api/posts', (req, res) => {
     return res.status(400).json({ error: 'Title and content are required.' });
   }
 
-  const query = 'INSERT INTO posts (title, content) VALUES (?, ?)';
-  db.run(query, [title, content], function (err) {
+  // Get the current time in Europe/Stockholm timezone
+  const stockholmTime = moment().tz('Europe/Stockholm').format('YYYY-MM-DD HH:mm:ss');
+
+  const query = 'INSERT INTO posts (title, content, created_at) VALUES (?, ?, ?)';
+  db.run(query, [title, content, stockholmTime], function (err) {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
@@ -145,15 +149,18 @@ app.post('/api/posts/:id/dislike', (req, res) => {
 
 // Add a comment to a specific post
 app.post('/api/posts/:id/comments', (req, res) => {
-  const { id } = req.params; // Post ID
-  const { text, author = 'Anonymous' } = req.body; // Author defaults to 'Anonymous'
+  const { id } = req.params;
+  const { text, author = 'Anonymous' } = req.body;
 
   if (!text) {
     return res.status(400).json({ error: 'Comment text is required.' });
   }
 
-  const query = 'INSERT INTO comments (post_id, text, author) VALUES (?, ?, ?)';
-  db.run(query, [id, text, author], function (err) {
+  // Get the current time in Europe/Stockholm timezone
+  const stockholmTime = moment().tz('Europe/Stockholm').format('YYYY-MM-DD HH:mm:ss');
+
+  const query = 'INSERT INTO comments (post_id, text, author, created_at) VALUES (?, ?, ?, ?)';
+  db.run(query, [id, text, author, stockholmTime], function (err) {
     if (err) {
       res.status(500).json({ error: err.message });
     } else {
