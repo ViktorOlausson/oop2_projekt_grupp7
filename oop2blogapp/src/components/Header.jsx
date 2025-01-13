@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const navItems = [
     {name: "Home", slug: "/"},
+    { name: "Create Post", slug: "/createpost" },
     {name: "Log In", slug: "/login"},
   ]
 
