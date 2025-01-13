@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Connect to SQLite database
-const db = new sqlite3.Database('./posts.db', (err) => {
+const db = new sqlite3.Database('./src/Data/posts.db', (err) => {
   if (err) {
     console.error('Error opening database:', err.message);
   } else {
@@ -25,6 +25,18 @@ const db = new sqlite3.Database('./posts.db', (err) => {
         dislikes INTEGER DEFAULT 0,
         comments TEXT DEFAULT '',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Create `comments` table
+    db.run(`
+      CREATE TABLE IF NOT EXISTS comments (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        post_id INTEGER NOT NULL,
+        text TEXT NOT NULL,
+        author TEXT DEFAULT 'Anonymous', -- New column for author
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP, -- Timestamp for comment creation
+        FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE
       )
     `);
   }
@@ -128,6 +140,39 @@ app.post('/api/posts/:id/dislike', (req, res) => {
       return res.status(500).json({ error: err.message });
     }
     res.status(200).json({ message: 'Post disliked successfully.' });
+  });
+});
+
+// Add a comment to a specific post
+app.post('/api/posts/:id/comments', (req, res) => {
+  const { id } = req.params; // Post ID
+  const { text, author = 'Anonymous' } = req.body; // Author defaults to 'Anonymous'
+
+  if (!text) {
+    return res.status(400).json({ error: 'Comment text is required.' });
+  }
+
+  const query = 'INSERT INTO comments (post_id, text, author) VALUES (?, ?, ?)';
+  db.run(query, [id, text, author], function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(201).json({ id: this.lastID, text, author });
+    }
+  });
+});
+
+// Retrieve comments for a specific post
+app.get('/api/posts/:id/comments', (req, res) => {
+  const { id } = req.params; // Post ID
+
+  const query = 'SELECT * FROM comments WHERE post_id = ? ORDER BY created_at ASC';
+  db.all(query, [id], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      res.status(200).json(rows);
+    }
   });
 });
 
