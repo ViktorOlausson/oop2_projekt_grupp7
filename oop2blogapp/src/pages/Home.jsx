@@ -11,7 +11,7 @@ const Home = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/posts');
-        setPosts(response.data); // Save the posts in state
+        setPosts(response.data);
       } catch (err) {
         console.error(err);
         setError('Failed to fetch posts.');
@@ -53,8 +53,9 @@ const Home = () => {
                 description: post.content,
                 shortDescription: post.content.length > 50 
                   ? post.content.substring(0, 50) + '...' 
-                  : post.content, // Truncated content for short description
-                author: `Author ${post.id}`, // Placeholder author
+                  : post.content,
+                author: `Author ${post.id}`,
+                created_at: post.created_at,
                 likes: post.likes,
                 dislikes: post.dislikes,
                 comments: post.comments || 'No comments',
