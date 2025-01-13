@@ -6,9 +6,9 @@ const PostItem = ({ post, onDelete }) => {
   const navigate = useNavigate();
   const [likes, setLikes] = useState(post.likes);
   const [dislikes, setDislikes] = useState(post.dislikes);
-  const [showComments, setShowComments] = useState(false); // Toggle comment section
-  const [comments, setComments] = useState([]); // Comments list
-  const [newComment, setNewComment] = useState(''); // New comment input
+  const [showComments, setShowComments] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
 
   // Fetch comments when the component mounts
   useEffect(() => {
@@ -38,8 +38,8 @@ const PostItem = ({ post, onDelete }) => {
         text: newComment,
         author: 'Anonymous', // Default author for now
       });
-      setNewComment(''); // Clear the text area
-      fetchComments(); // Reload comments
+      setNewComment('');
+      fetchComments(); 
     } catch (err) {
       console.error('Error adding comment:', err);
     }
@@ -71,9 +71,9 @@ const PostItem = ({ post, onDelete }) => {
       try {
         await axios.delete(`http://localhost:5000/api/posts/${post.id}`);
         if (onDelete) {
-          onDelete(post.id); // Notify parent to update UI
+          onDelete(post.id);
         } else {
-          window.location.reload(); // Reload page as fallback
+          window.location.reload(); 
         }
       } catch (err) {
         console.error('Error deleting post:', err);
@@ -82,13 +82,36 @@ const PostItem = ({ post, onDelete }) => {
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString.replace(' ', 'T'));
+  
+    // Format options
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true, // 12-hour format with AM/PM
+      timeZone: 'Europe/Stockholm', // Set timezone
+    };
+  
+    // Use Intl.DateTimeFormat for formatting with the correct timezone and DST
+    const formatter = new Intl.DateTimeFormat('en-US', options);
+    return formatter.format(date);
+  };
+
   return (
     <div className="bg-gray-300 p-4 rounded-md shadow-md flex relative">
       {/* Content Section */}
       <div className="flex-grow flex flex-col gap-2">
-        {/* Author */}
+        {/* Author and Date */}
         <div className="mb-2">
           <p className="font-semibold text-gray-700">Author: {post.author || 'Unknown Author'}</p>
+          <p className="text-sm text-gray-500">
+            Posted on: {post.created_at ? formatDate(post.created_at) : 'Date not available'}
+          </p>
         </div>
 
         {/* Title */}
@@ -167,7 +190,7 @@ const PostItem = ({ post, onDelete }) => {
                     <div className="text-sm text-gray-600 mb-1">
                       <span className="font-semibold">{comment.author || 'Anonymous'}</span>{' '}
                       <span className="text-gray-400">
-                        {new Date(comment.created_at).toLocaleString()}
+                        {formatDate(comment.created_at)}
                       </span>
                     </div>
                     <p>{comment.text}</p>
