@@ -20,7 +20,7 @@ function Header() {
 
   const navItems = [
     {name: "Home", slug: "/", active: true},
-    { name: "Create Post", slug: "/createpost" },
+    { name: "Create Post", slug: "/createpost", active: true},
     {name: "Log In", slug: "/login", active: !authStatus},
   ]
     if(currentPath == "/signup"){
