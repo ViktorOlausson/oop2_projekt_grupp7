@@ -2,13 +2,9 @@ import React from 'react'
 import "../index.css"
 import Button from './Button'
 import Container from './Container'
+import LogoutBtn from './LogoutBtn'
 import { useNavigate, useLocation } from "react-router-dom";
-
-const navItems = [
-    {name: "Home", slug: "/"},
-    { name: "Create Post", slug: "/createpost" },
-    {name: "Log In", slug: "/login"},
-  ]
+import { useSelector } from 'react-redux'
 
   const buttonStyle = "h-full flex items-center duration-300 text-black"
   const buttonPadding = "px-3"
@@ -17,9 +13,20 @@ const navItems = [
 
 function Header() {
 
-    const navigate = useNavigate()
-    const location = useLocation()
-    const currentPath = location.pathname
+  const navigate = useNavigate()
+  const location = useLocation()
+  let currentPath = location.pathname
+  const authStatus = useSelector((state) => state.auth.status)
+
+  const navItems = [
+    {name: "Home", slug: "/", active: true},
+    { name: "Create Post", slug: "/createpost" },
+    {name: "Log In", slug: "/login", active: !authStatus},
+  ]
+    if(currentPath == "/signup"){
+      currentPath = "/login"
+    }
+      
   return (
     <header className='h-12 place-content-center flex sticky top-0 z-50 bg-slate-400'>
       {/* border frame: border-2 border-border-gray */}
@@ -29,7 +36,7 @@ function Header() {
           </div>
               <ul className='flex ml-auto'>
 
-                {navItems.map((item) => (
+                {navItems.map((item) => item.active && (
                   <li className='mx-1.5' key={item.name}>
                     <Button className={`${buttonStyle} ${currentPath === item.slug ? "active" : ""}`} bgColor={buttonColor} padding={buttonPadding} 
                     onClick={() => navigate(item.slug)}>
@@ -37,6 +44,11 @@ function Header() {
                     </Button>
                   </li>
                 ))}
+                {authStatus && (
+                  <li>
+                    <LogoutBtn/>
+                  </li>
+                )}
                 
               </ul>
           

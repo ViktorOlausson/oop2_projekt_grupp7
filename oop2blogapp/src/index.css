@@ -6,3 +6,8 @@
     background-color: #705094;
     color: #121212;
   }
+  
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
