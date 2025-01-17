@@ -6,8 +6,6 @@ import LogoutBtn from './LogoutBtn'
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from 'react-redux'
 
-
-
   const buttonStyle = "h-full flex items-center duration-300 text-black"
   const buttonPadding = "px-3"
   const buttonColor = ""
@@ -22,6 +20,7 @@ function Header() {
 
   const navItems = [
     {name: "Home", slug: "/", active: true},
+    { name: "Create Post", slug: "/createpost" },
     {name: "Log In", slug: "/login", active: !authStatus},
   ]
     if(currentPath == "/signup"){
